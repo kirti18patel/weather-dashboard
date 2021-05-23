@@ -3,3 +3,28 @@
     padding: 0;
     box-sizing: border-box;
 }
+:root{
+    --dashboard-background1 : #3a69bd;
+    --dashboard-background2 : #250758;
+    --search-btn : #5aa2e9;
+    --uv-bg : #157e51;
+    --forecast-bg: #33475a;
+    --city-bg : #b7b7b7;
+
+}
+header{
+    background: linear-gradient(90deg, var(--dashboard-background1), var(--dashboard-background2));
+    color: white;
+}
+.search-title{
+    font-size: 2rem;
+    font-weight: bolder;
+}
+.btn{
+    color: white;
+    background-color: var(--search-btn);
+    width: 100%;
+}
+hr{
+    background-color: darkgray;
+}
