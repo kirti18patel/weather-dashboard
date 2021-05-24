@@ -28,3 +28,31 @@ header{
 hr{
     background-color: darkgray;
 }
+.current-weather{
+    border: 1px solid black;
+}
+.search-history ul{
+    list-style: none;
+}
+.city-search-history{
+    background: var(--city-bg);
+    border-radius: 5px;
+    margin: 15px 0;
+}
+
+.uv-index{
+    background-color: var(--uv-bg);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+}
+.day-forecast{
+    background: var(--forecast-bg);
+    color: white;
+    border: 1px solid black;
+    height: 200px;
+}
+.hide{
+    display: none;
+}
