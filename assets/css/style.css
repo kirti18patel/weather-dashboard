@@ -50,7 +50,7 @@ hr{
 .day-forecast{
     background: var(--forecast-bg);
     color: white;
-    border: 1px solid black;
+    border: 2px solid black;
     height: 200px;
 }
 .hide{
