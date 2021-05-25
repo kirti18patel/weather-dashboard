@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="./assets/css/style.css">
     <!-- Bootstrap CDN -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <!-- jquery link -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
     <header class="row">
@@ -41,11 +43,11 @@
         </div>
         <div class="result col-xl-9 hide">
             <div class="current-weather p-3 m-3">
-                <h2>Atlanta (3/30/2021) ☁️</h2>
-                <h5>Temp: 74.01</h5>
-                <h5>Temp: 74.01</h5>
-                <h5>Temp: 74.01</h5>
-                <h5>Temp: <span class="uv-index">74.01</span></h5>
+                <h2> <span id="city-name"></span> <span id="date"></span> <img src="" id="weather-icon"></h2>
+                <h5>Temp: <span id="temp"></span></h5>
+                <h5>Wind: <span id="wind"></span></h5>
+                <h5>Humidity: <span id="humidity"></span></h5>
+                <h5>UV Index: <span id="uv-index" class="uv-index">74.01</span></h5>
             </div>
             <div class="forecast-5day row m-3 justify-content-between">
                 <h3 class="col-12">5-day Forecast</h3>
@@ -88,6 +90,8 @@
         </div>
         
     </main>
+    <!-- moment.js link -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="./assets/js/script.js"></script>
 </body>
 </html>
