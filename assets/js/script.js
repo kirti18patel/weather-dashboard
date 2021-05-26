@@ -7,6 +7,28 @@ var futureForecast = function(userInput){
     })
     .then(function(data){
         console.log(data, userInput);
+        var futureForecastTitle = $("<h3>")
+        .addClass("col-12")
+        .text("5-day Forecast");
+        $(".forecast-5day").append(futureForecastTitle);
+        for(var i=0; i<5; i++){ 
+            var dayForecastHolder= $("<div>")
+            .addClass("day-forecast col-2 p-3");   
+            var date = $("<h5>")
+            .text("3/3/1021");
+            var span = $("<span>")
+            .addClass("icon")
+            .text("☁️");
+            var temp = $("<h5>")
+            .text("Temp: 75.7");
+            var wind = $("<h5>")
+            .text("Temp: 75.7");
+            var humidity = $("<h5>")
+            .text("Temp: 75.7");
+            dayForecastHolder.append(date, span, temp , wind , humidity);
+            $(".forecast-5day").append(dayForecastHolder);
+            
+        }
     });
 };
 
