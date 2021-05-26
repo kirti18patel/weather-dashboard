@@ -1,5 +1,7 @@
 var input = document.querySelector(".form-control");
 var userInputStorage = [];
+
+
 var futureForecast = function(userInput){
     fetch("http://api.openweathermap.org/data/2.5/forecast?q="+ userInput+ "&appid=34a53d9037f69833f5d3bd462bcecce3")
     .then( function(response){
@@ -33,15 +35,7 @@ var futureForecast = function(userInput){
     });
 };
 
-var displaySearchHistory = function(){
-    var userInputStorage= JSON.parse(localStorage.getItem("search")) || [];
-    userInputStorage= [...new Set(userInputStorage)];
-    $("#search-history-holder").empty();
-    for(var i=userInputStorage.length-1; i>=0; i--){
-        console.log(userInputStorage[i]);
-        $("#search-history-holder").append('<li class="city-search-history p-2 text-center">'+ userInputStorage[i] +'</li>');
-    }    
-};
+
 var displayResult= function(data, userInput){
     console.log(data);
     var fahrenheit = Math.round(((parseFloat(data.current.temp)-273.15)*1.8)+32); 
@@ -54,6 +48,18 @@ var displayResult= function(data, userInput){
     $("#uv-index").text(data.current.uvi);
     futureForecast(userInput);
 };
+
+
+var displaySearchHistory = function(){
+    var userInputStorage= JSON.parse(localStorage.getItem("search")) || [];
+    userInputStorage= [...new Set(userInputStorage)];
+    $("#search-history-holder").empty();
+    for(var i=userInputStorage.length-1; i>=0; i--){
+        console.log(userInputStorage[i]);
+        $("#search-history-holder").append('<li class="city-search-history p-2 text-center">'+ userInputStorage[i] +'</li>');
+    }    
+};
+
 
 var searchFun = function(event){
     event.preventDefault();
@@ -85,10 +91,6 @@ var searchFun = function(event){
         })
     });
 };
-$(".btn").on("click", searchFun);
 
-// 0:
-// clouds: {all: 57}
-// dt: 1622008800
-// dt_txt: "2021-05-26 06:00:00"
-// var newData = data.list[i*8].dt_text.split(" ");
+
+$(".btn").on("click", searchFun);
