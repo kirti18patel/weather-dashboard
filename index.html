@@ -10,15 +10,22 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <!-- jquery link -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- google font awesome link -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Heebo&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- header with Title of website -->
     <header class="row">
         <div class="col-xl-12 p-3 text-center">
             <h2>Weather Dashboard</h2>
         </div>
     </header>
+    <!-- container to display rest of the page -->
     <main class="row">
+        <!-- container to display search box and search history -->
         <div class="search col-xl-3 p-4">
+            <!-- form to enter the city user want to see wether conditions -->
             <form>
                 <div class="form-group">
                     <label class="search-title">Search for a City : </label>
@@ -27,11 +34,14 @@
                 <button type="submit" class="btn">Search</button>
             </form>
             <hr>
+            <!-- container to display search history -->
             <div class="search-history">
                 <ul id="search-history-holder"></ul>
             </div>
         </div>
+        <!-- container to display results -->
         <div class="result col-xl-9 hide">
+            <!-- container to display current weather conditions of the city user entered -->
             <div class="current-weather p-3 m-3">
                 <h2> <span id="city-name"></span> <span id="date"></span> <img src="" id="weather-icon"></h2>
                 <h5>Temp: <span id="temp"></span></h5>
@@ -39,6 +49,7 @@
                 <h5>Humidity: <span id="humidity"></span></h5>
                 <h5>UV Index: <span id="uv-index" class="uv-index"></span></h5>
             </div>
+            <!-- container to display future weather conditions of 5days -->
             <div class="forecast-5day row m-3 justify-content-between"></div>
         </div>  
     </main>

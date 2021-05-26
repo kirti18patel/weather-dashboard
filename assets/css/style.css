@@ -14,6 +14,10 @@
 
 }
 
+body{
+    font-family: 'Heebo', sans-serif;
+}
+
 /* header styling with gradient bg color */
 header{
     background: linear-gradient(90deg, var(--dashboard-background1), var(--dashboard-background2));
