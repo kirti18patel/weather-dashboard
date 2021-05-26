@@ -135,6 +135,9 @@ var fetchData = function(userInput){
             // unhide display result container
             $(".result").removeClass("hide");
         })
+    }).catch(function() {
+        alert("Please check! City name should be correct.")
+        location.reload("true");
     });
 }
 
