@@ -61,13 +61,15 @@ var futureForecast = function(userInput){
 
 var displayResult= function(data, userInput){
     var fahrenheit = Math.round(((parseFloat(data.current.temp)-273.15)*1.8)+32); 
+    var uviValue = data.current.uvi;
     $("#city-name").text(userInput);
     $("#date").text("(" + moment().format("l") + ")");
     $("#weather-icon").attr("src","http://openweathermap.org/img/w/"+data.current.weather[0].icon+".png");
     $("#temp").text(fahrenheit + " °F");
     $("#wind").text(data.current.wind_speed + " MPH");
     $("#humidity").text(data.current.humidity + "%");
-    $("#uv-index").text(data.current.uvi);
+    $("#uv-index").text(uviValue);
+    changeBgcolor(uviValue);
     futureForecast(userInput);
 };
 

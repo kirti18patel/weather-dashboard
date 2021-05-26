@@ -41,7 +41,7 @@ hr{
 }
 
 .uv-index{
-    background-color: var(--uv-bg);
+    /* background: var(--uv-bg); */
     color: white;
     padding: 5px 10px;
     border-radius: 5px;
