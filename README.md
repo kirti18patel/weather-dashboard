@@ -20,6 +20,7 @@ click the link below to check the repository : [Github Repository Link](https://
 ## Preview
 ![alt screenshot1](/assets/images/img1.png)
 ![alt screenshot1](/assets/images/img2.png)
+![alt screenshot1](/assets/images/img3.png)
 
 #### Contact - **kirti18patel@yahoo.com**
 

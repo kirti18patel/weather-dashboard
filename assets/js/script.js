@@ -105,7 +105,7 @@ var displaySearchHistory = function(){
     $("#search-history-holder").empty();
     for(var i=userInputStorage.length-1; i>=0; i--){
         $("#search-history-holder").append('<li class="city-search-history p-2 text-center">'+ userInputStorage[i] +'</li>');
-    }    
+    }   
 };
 
 // search funtion when user clicks search button
