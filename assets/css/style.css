@@ -3,23 +3,34 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+/* all required colors defined */
 :root{
     --dashboard-background1 : #3a69bd;
     --dashboard-background2 : #250758;
     --search-btn : #5aa2e9;
-    --uv-bg : #157e51;
     --forecast-bg: #33475a;
     --city-bg : #b7b7b7;
 
 }
+
+body{
+    font-family: 'Heebo', sans-serif;
+}
+
+/* header styling with gradient bg color */
 header{
     background: linear-gradient(90deg, var(--dashboard-background1), var(--dashboard-background2));
     color: white;
 }
+
+/* search title styling */
 .search-title{
     font-size: 2rem;
     font-weight: bolder;
 }
+
+/* search button styling */
 .btn{
     color: white;
     background-color: var(--search-btn);
@@ -28,9 +39,13 @@ header{
 hr{
     background-color: darkgray;
 }
+
+/* cuurent weather container black border */
 .current-weather{
     border: 1px solid black;
 }
+
+/* search history container styling */
 .search-history ul{
     list-style: none;
 }
@@ -40,19 +55,23 @@ hr{
     margin: 15px 0;
 }
 
+/* uv index container styling */
 .uv-index{
-    background-color: var(--uv-bg);
     color: white;
     padding: 5px 10px;
     border-radius: 5px;
     font-size: 0.9rem;
 }
+
+/* future forecast card styling */
 .day-forecast{
     background: var(--forecast-bg);
     color: white;
     border: 2px solid black;
-    height: 200px;
+    height: 220px;
 }
+
+/* class to hide element */
 .hide{
     display: none;
 }
