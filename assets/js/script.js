@@ -8,7 +8,7 @@ var saveSearchHistory = function() {
 
 // displays weather condition for future 5days 
 var futureForecast = function(userInput){
-    fetch("http://api.openweathermap.org/data/2.5/forecast?q="+ userInput+ "&appid=34a53d9037f69833f5d3bd462bcecce3")
+    fetch("https://api.openweathermap.org/data/2.5/forecast?q="+ userInput+ "&appid=34a53d9037f69833f5d3bd462bcecce3")
     .then( function(response){
         return response.json();
     })
