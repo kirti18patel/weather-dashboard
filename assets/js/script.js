@@ -1,5 +1,10 @@
 var input = document.querySelector(".form-control");
-var userInputStorage = [];
+var userInputStorage;
+
+
+var saveSearchHistory = function() {
+    localStorage.setItem("search", JSON.stringify(userInputStorage));
+};
 
 
 var futureForecast = function(userInput){
@@ -9,6 +14,7 @@ var futureForecast = function(userInput){
     })
     .then(function(data){
         console.log(data.list, userInput);
+        $(".forecast-5day").empty();
         var futureForecastTitle = $("<h3>")
         .addClass("col-12")
         .text("5-day Forecast");
@@ -51,7 +57,7 @@ var displayResult= function(data, userInput){
 
 
 var displaySearchHistory = function(){
-    var userInputStorage= JSON.parse(localStorage.getItem("search")) || [];
+    userInputStorage= JSON.parse(localStorage.getItem("search")) || [];
     userInputStorage= [...new Set(userInputStorage)];
     $("#search-history-holder").empty();
     for(var i=userInputStorage.length-1; i>=0; i--){
@@ -63,16 +69,17 @@ var displaySearchHistory = function(){
 
 var searchFun = function(event){
     event.preventDefault();
+    
     var userInput=input.value.trim();
     if(userInput==="" || !isNaN(userInput)){
         alert("Please enter valid city name.");
         return;
     }
+    // userInputStorage= JSON.parse(localStorage.getItem("search")) || [];
     userInput = userInput.charAt(0).toUpperCase() + userInput.substr(1).toLowerCase();
     userInputStorage.push(userInput);
-    localStorage.setItem("search", JSON.stringify(userInputStorage));
+    saveSearchHistory();
     displaySearchHistory();
-    // var userInputStorage= JSON.parse(localStorage.getItem("highscore")) || [];
     fetch("https://api.openweathermap.org/data/2.5/weather?q="+ userInput +"&appid=34a53d9037f69833f5d3bd462bcecce3")
     .then( function(response){
         return response.json();
@@ -93,4 +100,5 @@ var searchFun = function(event){
 };
 
 
+displaySearchHistory();
 $(".btn").on("click", searchFun);
