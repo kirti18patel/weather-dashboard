@@ -24,7 +24,6 @@ var futureForecast = function(userInput){
             var futuredate = data.list[j].dt_txt.split(" ");
             // check condition and display weather condition of 12 noon
             if (futuredate[1] === "12:00:00") {
-                console.log(futuredate[1]);
                 var dayForecastHolder = $("<div>").addClass(
                 "day-forecast col-2 p-3"
                 );
@@ -105,26 +104,19 @@ var displaySearchHistory = function(){
     $("#search-history-holder").empty();
     for(var i=userInputStorage.length-1; i>=0; i--){
         $("#search-history-holder").append('<li class="city-search-history p-2 text-center">'+ userInputStorage[i] +'</li>');
-    }   
+    }
+    // eventlistener when clicked on city from search history
+    $(".city-search-history").on("click", citySearchHistoryClick);  
 };
 
-// search funtion when user clicks search button
-var searchFun = function(event){
-    event.preventDefault();
-    
-    var userInput=input.value.trim();
-    // validate city name which should not be empty or not a number
-    if(userInput==="" || !isNaN(userInput)){
-        alert("Please enter valid city name.");
-        return;
-    }
-
-    userInput = userInput.charAt(0).toUpperCase() + userInput.substr(1).toLowerCase();
-    userInputStorage.push(userInput);
-    // call function to save data at local storage
-    saveSearchHistory();
-    // call function to display updated search history
-    displaySearchHistory();
+// display weather condition when clicked on city from search history
+var citySearchHistoryClick = function(event){
+    var userInput = $(event.target).text();
+    fetchData(userInput);
+};
+   
+// fetch data and display result
+var fetchData = function(userInput){
     // fetch data from server side api on wether forecast
     fetch("https://api.openweathermap.org/data/2.5/weather?q="+ userInput +"&appid=34a53d9037f69833f5d3bd462bcecce3")
     .then( function(response){
@@ -144,6 +136,27 @@ var searchFun = function(event){
             $(".result").removeClass("hide");
         })
     });
+}
+
+// search funtion when user clicks search button
+var searchFun = function(event){
+    event.preventDefault();
+    
+    var userInput=input.value.trim();
+    // validate city name which should not be empty or not a number
+    if(userInput==="" || !isNaN(userInput)){
+        alert("Please enter valid city name.");
+        return;
+    }
+
+    userInput = userInput.charAt(0).toUpperCase() + userInput.substr(1).toLowerCase();
+    userInputStorage.push(userInput);
+    // call function to save data at local storage
+    saveSearchHistory();
+    // call function to display updated search history
+    displaySearchHistory();
+    // call function to fetch data and display result
+    fetchData(userInput)
 };
 
 // display search history at first 

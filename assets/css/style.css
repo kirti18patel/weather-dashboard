@@ -53,6 +53,7 @@ hr{
     background: var(--city-bg);
     border-radius: 5px;
     margin: 15px 0;
+    cursor: pointer;
 }
 
 /* uv index container styling */
