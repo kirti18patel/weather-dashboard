@@ -136,7 +136,7 @@ var fetchData = function(userInput){
             $(".result").removeClass("hide");
         })
     }).catch(function() {
-        alert("Please check! City name should be correct.")
+        alert("Please check! City name should be correct. \nYou entered : " +userInput);
         location.reload("true");
     });
 }
