@@ -13,37 +13,53 @@ var futureForecast = function(userInput){
         return response.json();
     })
     .then(function(data){
-        console.log(data.list, userInput);
+        console.log(data.list);
         $(".forecast-5day").empty();
         var futureForecastTitle = $("<h3>")
         .addClass("col-12")
         .text("5-day Forecast");
         $(".forecast-5day").append(futureForecastTitle);
-        for(var i=0; i<5; i++){ 
-            var futuredate = data.list[i*8].dt_txt.split(" ");
-            var dayForecastHolder= $("<div>")
-            .addClass("day-forecast col-2 p-3");   
-            var date = $("<h5>")
-            .text(moment(futuredate[0]).format("M/DD/YYYY"));
-            var span = $("<img>")
-            .addClass("icon")
-            .attr("src","http://openweathermap.org/img/w/"+data.list[i*8].weather[0].icon+".png");
-            var temp = $("<h5>")
-            .text("Temp: "+ Math.round(((parseFloat(data.list[i*8].main.temp)-273.15)*1.8)+32) + " °F");
-            var wind = $("<h5>")
-            .text("Wind: " + data.list[i*8].wind.speed + " MPH");
-            var humidity = $("<h5>")
-            .text("Humidity: " + data.list[i*8].main.humidity + "%");
-            dayForecastHolder.append(date, span, temp , wind , humidity);
-            $(".forecast-5day").append(dayForecastHolder);
-            
-        }
+        
+        for (var j = 0; j < data.list.length; j++) {
+            var futuredate = data.list[j].dt_txt.split(" ");
+            if (futuredate[1] === "12:00:00") {
+                console.log(futuredate[1]);
+                var dayForecastHolder = $("<div>").addClass(
+                "day-forecast col-2 p-3"
+                );
+                var date = $("<h5>").text(
+                moment(futuredate[0]).format("M/DD/YYYY")
+                );
+                var span = $("<img>")
+                .addClass("icon")
+                .attr(
+                    "src",
+                    "http://openweathermap.org/img/w/" +
+                    data.list[j].weather[0].icon +
+                    ".png"
+                );
+                var temp = $("<h5>").text(
+                "Temp: " +
+                    Math.round(
+                    (parseFloat(data.list[j].main.temp) - 273.15) * 1.8 + 32
+                    ) +
+                    " °F"
+                );
+                var wind = $("<h5>").text(
+                "Wind: " + data.list[j].wind.speed + " MPH"
+                );
+                var humidity = $("<h5>").text(
+                "Humidity: " + data.list[j].main.humidity + "%"
+                );
+                dayForecastHolder.append(date, span, temp, wind, humidity);
+                $(".forecast-5day").append(dayForecastHolder);
+            }
+        }  
     });
 };
 
 
 var displayResult= function(data, userInput){
-    console.log(data);
     var fahrenheit = Math.round(((parseFloat(data.current.temp)-273.15)*1.8)+32); 
     $("#city-name").text(userInput);
     $("#date").text("(" + moment().format("l") + ")");
@@ -61,7 +77,6 @@ var displaySearchHistory = function(){
     userInputStorage= [...new Set(userInputStorage)];
     $("#search-history-holder").empty();
     for(var i=userInputStorage.length-1; i>=0; i--){
-        console.log(userInputStorage[i]);
         $("#search-history-holder").append('<li class="city-search-history p-2 text-center">'+ userInputStorage[i] +'</li>');
     }    
 };
@@ -75,7 +90,7 @@ var searchFun = function(event){
         alert("Please enter valid city name.");
         return;
     }
-    // userInputStorage= JSON.parse(localStorage.getItem("search")) || [];
+
     userInput = userInput.charAt(0).toUpperCase() + userInput.substr(1).toLowerCase();
     userInputStorage.push(userInput);
     saveSearchHistory();
@@ -85,7 +100,6 @@ var searchFun = function(event){
         return response.json();
     })
     .then(function(data){
-        console.log(data);
         var lon= data.coord.lon;
         var lat= data.coord.lat;
         fetch("https://api.openweathermap.org/data/2.5/onecall?lat="+lat+"&lon="+lon+"&exclude=minutely,hourly,daily&appid=34a53d9037f69833f5d3bd462bcecce3")
