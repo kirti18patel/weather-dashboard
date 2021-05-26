@@ -60,7 +60,7 @@ var futureForecast = function(userInput){
 
 // change backgound color of uv-index holder according to its value for low, moderate, high, very high and extreme
 var changeBgcolor = function(uviValue){
-    if(uviValue>0 && uviValue<3){
+    if(uviValue>=0 && uviValue<3){
         $("#uv-index").css("background", "green");
     }
     else if(uviValue>3 && uviValue<6){
