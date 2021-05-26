@@ -59,6 +59,25 @@ var futureForecast = function(userInput){
 };
 
 
+var changeBgcolor = function(uviValue){
+    console.log(uviValue);
+    if(uviValue>0 && uviValue<3){
+        $("#uv-index").css("background", "green");
+    }
+    else if(uviValue>3 && uviValue<6){
+        $("#uv-index").css("background", "#dbdb04");
+    }
+    else if(uviValue>6 && uviValue<8){
+        $("#uv-index").css("background", "orange");
+    }
+    else if(uviValue>8 && uviValue<11){
+        $("#uv-index").css("background", "red");
+    }
+    else{
+        $("#uv-index").css("background", "violet");
+    }
+};
+
 var displayResult= function(data, userInput){
     var fahrenheit = Math.round(((parseFloat(data.current.temp)-273.15)*1.8)+32); 
     var uviValue = data.current.uvi;
