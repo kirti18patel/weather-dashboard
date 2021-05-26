@@ -1,27 +1,28 @@
 var input = document.querySelector(".form-control");
 var userInputStorage;
 
-
+// saves user search history to loacal storage
 var saveSearchHistory = function() {
     localStorage.setItem("search", JSON.stringify(userInputStorage));
 };
 
-
+// displays weather condition for future 5days 
 var futureForecast = function(userInput){
     fetch("http://api.openweathermap.org/data/2.5/forecast?q="+ userInput+ "&appid=34a53d9037f69833f5d3bd462bcecce3")
     .then( function(response){
         return response.json();
     })
     .then(function(data){
-        console.log(data.list);
         $(".forecast-5day").empty();
         var futureForecastTitle = $("<h3>")
         .addClass("col-12")
         .text("5-day Forecast");
         $(".forecast-5day").append(futureForecastTitle);
         
+        // loop through data to get weather condition for 5days
         for (var j = 0; j < data.list.length; j++) {
             var futuredate = data.list[j].dt_txt.split(" ");
+            // check condition and display weather condition of 12 noon
             if (futuredate[1] === "12:00:00") {
                 console.log(futuredate[1]);
                 var dayForecastHolder = $("<div>").addClass(
@@ -58,9 +59,8 @@ var futureForecast = function(userInput){
     });
 };
 
-
+// change backgound color of uv-index holder according to its value for low, moderate, high, very high and extreme
 var changeBgcolor = function(uviValue){
-    console.log(uviValue);
     if(uviValue>0 && uviValue<3){
         $("#uv-index").css("background", "green");
     }
@@ -78,7 +78,9 @@ var changeBgcolor = function(uviValue){
     }
 };
 
+// dispaly result based on user input
 var displayResult= function(data, userInput){
+    // convert temperature value in fahrenheit
     var fahrenheit = Math.round(((parseFloat(data.current.temp)-273.15)*1.8)+32); 
     var uviValue = data.current.uvi;
     $("#city-name").text(userInput);
@@ -88,13 +90,17 @@ var displayResult= function(data, userInput){
     $("#wind").text(data.current.wind_speed + " MPH");
     $("#humidity").text(data.current.humidity + "%");
     $("#uv-index").text(uviValue);
+    // call function to change color of uv-index container based on uv-index value
     changeBgcolor(uviValue);
+    // call funtion to display weather condition of future 5 days
     futureForecast(userInput);
 };
 
-
+// display search history
 var displaySearchHistory = function(){
+    // get data saved from local storage
     userInputStorage= JSON.parse(localStorage.getItem("search")) || [];
+    // remove redundancy in an array
     userInputStorage= [...new Set(userInputStorage)];
     $("#search-history-holder").empty();
     for(var i=userInputStorage.length-1; i>=0; i--){
@@ -102,11 +108,12 @@ var displaySearchHistory = function(){
     }    
 };
 
-
+// search funtion when user clicks search button
 var searchFun = function(event){
     event.preventDefault();
     
     var userInput=input.value.trim();
+    // validate city name which should not be empty or not a number
     if(userInput==="" || !isNaN(userInput)){
         alert("Please enter valid city name.");
         return;
@@ -114,8 +121,11 @@ var searchFun = function(event){
 
     userInput = userInput.charAt(0).toUpperCase() + userInput.substr(1).toLowerCase();
     userInputStorage.push(userInput);
+    // call function to save data at local storage
     saveSearchHistory();
+    // call function to display updated search history
     displaySearchHistory();
+    // fetch data from server side api on wether forecast
     fetch("https://api.openweathermap.org/data/2.5/weather?q="+ userInput +"&appid=34a53d9037f69833f5d3bd462bcecce3")
     .then( function(response){
         return response.json();
@@ -123,17 +133,20 @@ var searchFun = function(event){
     .then(function(data){
         var lon= data.coord.lon;
         var lat= data.coord.lat;
+        // fetch data from another server side api which includes data for uv-index as well
         fetch("https://api.openweathermap.org/data/2.5/onecall?lat="+lat+"&lon="+lon+"&exclude=minutely,hourly,daily&appid=34a53d9037f69833f5d3bd462bcecce3")
         .then( function(result){
             return result.json();
         })
         .then(function(data){
             displayResult(data, userInput);
+            // unhide display result container
             $(".result").removeClass("hide");
         })
     });
 };
 
-
+// display search history at first 
 displaySearchHistory();
+// event listener for clicking search button
 $(".btn").on("click", searchFun);
