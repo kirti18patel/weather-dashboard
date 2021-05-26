@@ -6,25 +6,26 @@ var futureForecast = function(userInput){
         return response.json();
     })
     .then(function(data){
-        console.log(data, userInput);
+        console.log(data.list, userInput);
         var futureForecastTitle = $("<h3>")
         .addClass("col-12")
         .text("5-day Forecast");
         $(".forecast-5day").append(futureForecastTitle);
         for(var i=0; i<5; i++){ 
+            var futuredate = data.list[i*8].dt_txt.split(" ");
             var dayForecastHolder= $("<div>")
             .addClass("day-forecast col-2 p-3");   
             var date = $("<h5>")
-            .text("3/3/1021");
-            var span = $("<span>")
+            .text(moment(futuredate[0]).format("M/DD/YYYY"));
+            var span = $("<img>")
             .addClass("icon")
-            .text("☁️");
+            .attr("src","http://openweathermap.org/img/w/"+data.list[i*8].weather[0].icon+".png");
             var temp = $("<h5>")
-            .text("Temp: 75.7");
+            .text("Temp: "+ Math.round(((parseFloat(data.list[i*8].main.temp)-273.15)*1.8)+32) + " °F");
             var wind = $("<h5>")
-            .text("Temp: 75.7");
+            .text("Wind: " + data.list[i*8].wind.speed + " MPH");
             var humidity = $("<h5>")
-            .text("Temp: 75.7");
+            .text("Humidity: " + data.list[i*8].main.humidity + "%");
             dayForecastHolder.append(date, span, temp , wind , humidity);
             $(".forecast-5day").append(dayForecastHolder);
             
@@ -49,7 +50,7 @@ var displayResult= function(data, userInput){
     $("#weather-icon").attr("src","http://openweathermap.org/img/w/"+data.current.weather[0].icon+".png");
     $("#temp").text(fahrenheit + " °F");
     $("#wind").text(data.current.wind_speed + " MPH");
-    $("#humidity").text(data.current.humidity + " %");
+    $("#humidity").text(data.current.humidity + "%");
     $("#uv-index").text(data.current.uvi);
     futureForecast(userInput);
 };
@@ -85,3 +86,9 @@ var searchFun = function(event){
     });
 };
 $(".btn").on("click", searchFun);
+
+// 0:
+// clouds: {all: 57}
+// dt: 1622008800
+// dt_txt: "2021-05-26 06:00:00"
+// var newData = data.list[i*8].dt_text.split(" ");
